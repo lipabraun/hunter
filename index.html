@@ -2,115 +2,44 @@
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>מפקדת ציד הווידאו שלי 🏹</title>
+    <title>מפקדת ציד הווידאו 🏹</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #121212;
-            color: #e0e0e0;
-            text-align: center;
-            padding: 20px;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: #1e1e1e;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            border: 1px solid #ff9800;
-        }
-        h1 { color: #ff9800; margin-bottom: 5px; }
-        p { color: #aaa; font-size: 14px; }
-        .bookmarklet-btn {
-            display: inline-block;
-            background: linear-gradient(45deg, #ff9800, #e65100);
-            color: white;
-            padding: 15px 30px;
-            font-size: 18px;
-            font-weight: bold;
-            text-decoration: none;
-            border-radius: 30px;
-            margin: 20px 0;
-            box-shadow: 0 4px 10px rgba(230, 81, 0, 0.4);
-            cursor: grab;
-            border: 2px dashed #fff;
-        }
-        .bookmarklet-btn:active { cursor: grabbing; }
-        .instructions {
-            background: #2d2d2d;
-            padding: 15px;
-            border-right: 5px solid #ff9800;
-            text-align: right;
-            border-radius: 5px;
-            margin-top: 20px;
-        }
-        ol { margin: 10px 0; padding-right: 20px; }
-        li { margin-bottom: 8px; }
-        input, button {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-            border-radius: 5px;
-            border: 1px solid #444;
-            background: #2d2d2d;
-            color: white;
-            box-sizing: border-box;
-        }
-        button {
-            background: #4caf50;
-            cursor: pointer;
-            font-weight: bold;
-            border: none;
-        }
-        button:hover { background: #45a049; }
+        body { font-family: sans-serif; background: #121212; color: #fff; padding: 20px; text-align: center; }
+        .box { background: #1e1e1e; padding: 20px; border-radius: 15px; border: 1px solid #ff9800; }
+        .found-link { display: block; margin: 10px 0; padding: 15px; background: #4caf50; color: white; text-decoration: none; border-radius: 10px; font-weight: bold; }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <h1>מפקדת ציד הווידאו 🕵️‍♂️</h1>
-    <p>הופכים את קודי המארב לכפתור אחד מהיר בדפדפן!</p>
-    
-    <hr style="border-color: #333; margin: 20px 0;">
-
-    <h3>שלב א': כפתור המארב האוטומטי</h3>
-    <p>גרור את הכפתור הכתום הזה למעלה אל <strong>שורת הסימניות (Bookmarks)</strong> של הדפדפן שלך:</p>
-
-    <!-- זהו כפתור הקסם שמכיל את קוד מארב העל המעודכן שלנו! -->
-    <a class="bookmarklet-btn" href="javascript:(function(){alert('מארב על הופעל! 🕵️‍♂️\nרענן את הדף, לחץ שוב על הסימניה, ונגן את הווידאו.');var patterns=['.m3u8','.mpd','manifest','playlist','master','chunk','fragment','stream','video','audio','.ts','.mp4','.m4v','.webm','casttime','ustudio','vimeo','jwplayer'];function checkUrl(url){for(var i=0;i<patterns.length;i++){if(url.toLowerCase().includes(patterns[i])){prompt('🎯 הציד הצליח! נמצא רמז לווידאו:\n\n(אם זה לא הקישור הנכון, לחץ אישור והמשך לנגן כדי לתפוס את הבא)',url);return true;}}return false;}var oldOpen=XMLHttpRequest.prototype.open;XMLHttpRequest.prototype.open=function(method,url){checkUrl(url);oldOpen.apply(this,arguments);};var oldFetch=window.fetch;window.fetch=function(input,init){var url=(typeof input==='string')?input:input.url;checkUrl(url);return oldFetch.apply(this,arguments);};})();">
-        🏹 תפוס וידאו!
-    </a>
-
-    <div class="instructions">
-        <h4>איך משתמשים בזה בטאבלט?</h4>
-        <ol>
-            <li><strong>שמור את הסימנייה:</strong> גרור את הכפתור הכתום לסימניות (או פשוט שמור דף כלשהו כסימנייה, וערוך את הכתובת שלה כך שתכיל את הקוד של הכפתור).</li>
-            <li><strong>בזמן אמת:</strong> כנס לאתר עם הווידאו (למשל ערוץ 14).</li>
-            <li>לחץ על הסימנייה <strong>"🏹 תפוס וידאו!"</strong> מרשימת הסימניות שלך.</li>
-            <li>לחץ Play על הווידאו – והקישור יקפוץ לך מיד בשנייה!</li>
-        </ol>
+    <div class="box">
+        <h1>מפקדת הציד 🏹</h1>
+        <p>לחץ על הכפתור כדי להפעיל את המארב:</p>
+        <button onclick="activateHunter()" style="padding: 15px; background: #ff9800; border: none; color: white; font-size: 18px; border-radius: 10px;">🛡️ הפעל מארב</button>
+        <div id="results" style="margin-top: 20px;"></div>
     </div>
 
-    <hr style="border-color: #333; margin: 25px 0;">
-
-    <h3>שלב ב': מפענח כתובות ידני (בונוס)</h3>
-    <p>מצאת כתובת configuration או playlist? הדבק אותה פה כדי לפתוח אותה ישירות:</p>
-    <input type="text" id="urlInput" placeholder="הדבק כאן את הכתובת החשודה...">
-    <button onclick="analyzeUrl()">צא לציד ידני 🚀</button>
-</div>
-
-<script>
-    function analyzeUrl() {
-        var url = document.getElementById('urlInput').value;
-        if(url) {
-            window.open(url, '_blank');
-        } else {
-            alert('אנא הדבק כתובת קודם לכן!');
+    <script>
+        function activateHunter() {
+            alert('המארב פעיל! עכשיו תפעיל את הווידאו באתר היעד.');
+            var patterns=['.m3u8','.mpd','manifest','playlist','master','chunk','.ts'];
+            function checkUrl(url) {
+                for(var i=0; i<patterns.length; i++) {
+                    if(url.toLowerCase().includes(patterns[i])) {
+                        var div = document.getElementById('results');
+                        var a = document.createElement('a');
+                        a.href = url;
+                        a.className = 'found-link';
+                        a.innerText = '🎬 נמצא וידאו! לחץ כאן להורדה/צפייה';
+                        div.appendChild(a);
+                        return true;
+                    }
+                }
+                return false;
+            }
+            var oldOpen = XMLHttpRequest.prototype.open;
+            XMLHttpRequest.prototype.open = function(method,url) { checkUrl(url); oldOpen.apply(this,arguments); };
+            var oldFetch = window.fetch;
+            window.fetch = function(input,init) { var url = (typeof input==='string')?input:input.url; checkUrl(url); return oldFetch.apply(this,arguments); };
         }
-    }
-</script>
-
+    </script>
 </body>
 </html>
